@@ -24,7 +24,8 @@ const signup = async (req, res) => {
         //Generate token with the user's id and Secret key
         //set cookie with the token generated
         if (user) {
-            let token = jwt.sign({ id: user.id }, process.env.secretKey, {
+            let token = jwt.sign({ id: user.id }, `${process.env.secretKey}`
+            , {
                 expiresIn: 1 * 24 * 60 * 60 * 1000, //expires in 
             });
 
@@ -59,7 +60,8 @@ const login = async (req, res) => {
                 const isSame = await bcrypt.compare(password, user.password);
                 //if password is correct generate token with the user's id and secret key
                 if (isSame) {
-                    let token = jwt.sign({ id: user.id }, process.env.secretKey, {
+                    let token = jwt.sign({ id: user.id }, `${process.env.secretKey}`,
+                     {
                         expiresIn: 1 * 24 * 60 * 60 * 1000, //expires in
                 });
 
